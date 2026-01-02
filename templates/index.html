@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NexlyWorld — Донат</title>
+<style>
+:root{
+  --bg:#06130c;
+  --card:#0c1f14;
+  --card2:#0a1a11;
+  --border:#1f5a3a;
+  --accent:#38d27d;
+  --price:#ffd166;
+  --text:#eafff3;
+  --muted:#9bd3b3;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background:
+    radial-gradient(1200px 500px at 50% -200px, #123c27, transparent),
+    var(--bg);
+  color:var(--text);
+}
+/* HEADER */
+.header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:linear-gradient(180deg, rgba(5,20,13,.95), rgba(5,20,13,.75));
+  border-bottom:2px solid #1f5a3a;
+  box-shadow:0 10px 30px rgba(0,0,0,.4);
+}
+.header-inner{
+  max-width:1100px;
+  margin:0 auto;
+  padding:14px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.logo{
+  font-size:26px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:var(--accent);
+  text-shadow:0 0 12px rgba(56,210,125,.5);
+}
+.logo span{
+  color:#eafff3;
+}
+.badge{
+  font-size:12px;
+  background:#0f3b26;
+  padding:6px 12px;
+  border-radius:999px;
+  border:1px solid #1f5a3a;
+}
+.wrapper{
+  max-width:1100px;
+  margin:24px auto 50px;
+  padding:0 16px;
+}
+.subtitle{
+  text-align:center;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+.grid{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:16px;
+}
+@media(max-width:700px){
+  .grid{grid-template-columns:1fr}
+}
+.card{
+  background:linear-gradient(180deg, var(--card), var(--card2));
+  border:2px solid #133d28;
+  border-radius:18px;
+  padding:16px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  cursor:pointer;
+  transition:.15s;
+}
+.card:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 0 2px rgba(56,210,125,.15);
+}
+.card.selected{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(56,210,125,.25);
+}
+.name{
+  font-size:18px;
+  font-weight:700;
+}
+.hint{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:4px;
+}
+.price{
+  font-size:18px;
+  font-weight:800;
+  color:var(--price);
+}
+.info{
+  margin-top:18px;
+  font-size:14px;
+  color:var(--muted);
+}
+.right{
+  margin-top:28px;
+  background:rgba(0,0,0,.25);
+  border:1px solid #1f5a3a;
+  border-radius:18px;
+  padding:18px;
+}
+.btn{
+  display:inline-block;
+  margin-top:12px;
+  padding:14px 22px;
+  background:linear-gradient(180deg,#4af2a0,#2dbb6f);
+  color:#052014;
+  font-weight:900;
+  border-radius:16px;
+  text-decoration:none;
+  box-shadow:0 6px 18px rgba(56,210,125,.35);
+}
+.btn:hover{
+  filter:brightness(1.05);
+}
+.small{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:12px;
+  line-height:1.4;
+}
+.ip{
+  margin-top:10px;
+  font-family:monospace;
+  background:#05130c;
+  border:1px solid #1f5a3a;
+  padding:8px 10px;
+  border-radius:10px;
+  display:inline-block;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <div class="logo">NEXLY<span>WORLD</span></div>
+    <div class="badge">DONATE • RUB</div>
+  </div>
+</div>
+
+<div class="wrapper">
+  <div class="subtitle">Выбери донат и поддержи сервер</div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="info">
+    💡 Подсказка: выбери донат и перейди к оплате.  
+    В DonationAlerts укажи: <b>ник + донат + сумма</b>.
+  </div>
+
+  <div class="right">
+    <div><b>IP сервера:</b></div>
+    <div class="ip">65.21.84.139:33125</div>
+
+    <div>
+      <a class="btn" href="https://www.donationalerts.com/r/daksi_minecraft" target="_blank">
+        Перейти к оплате
+      </a>
+    </div>
+
+    <div class="small">
+      ⚠️ Если введён неправильный ник — администрация не отвечает за это.<br>
+      📩 Связь с нами в Telegram: <b>@daksi_official</b><br>
+      ⏱ Донат выдаётся в течение суток.
+    </div>
+  </div>
+</div>
+
+<script>
+const tiers = [
+  ["Элита",19],["Страж",39],["Герой",79],["Князь",149],
+  ["Шторм",249],["Эндер",449],["Блейз",579],["Визер",749],["Фантом",999]
+];
+const grid=document.getElementById("grid");
+tiers.forEach(t=>{
+  const d=document.createElement("div");
+  d.className="card";
+  d.innerHTML=`
+    <div>
+      <div class="name">${t[0]}</div>
+      <div class="hint">Нажми, чтобы выбрать</div>
+    </div>
+    <div class="price">${t[1]} ₽</div>
+  `;
+  d.onclick=()=>{
+    document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
+    d.classList.add("selected");
+  };
+  grid.appendChild(d);
+});
+</script>
+
+</body>
+</html>
