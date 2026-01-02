@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>NexlyWorld — Донат</title>
 <style>
 :root{
@@ -14,8 +14,11 @@
   --price:#ffd166;
   --text:#eafff3;
   --muted:#9bd3b3;
+  --danger:#ff6b6b;
+  --shadow: 0 10px 30px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family: Arial, sans-serif;
@@ -24,40 +27,35 @@ body{
     var(--bg);
   color:var(--text);
 }
-/* HEADER */
 .header{
-  position:sticky;
-  top:0;
-  z-index:10;
+  position:sticky; top:0; z-index:10;
   background:linear-gradient(180deg, rgba(5,20,13,.95), rgba(5,20,13,.75));
   border-bottom:2px solid #1f5a3a;
-  box-shadow:0 10px 30px rgba(0,0,0,.4);
+  backdrop-filter: blur(8px);
 }
 .header-inner{
-  max-width:1100px;
-  margin:0 auto;
+  max-width:1100px; margin:0 auto;
   padding:14px 16px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px;
 }
 .logo{
-  font-size:26px;
-  font-weight:900;
-  letter-spacing:2px;
+  font-size:26px; font-weight:900; letter-spacing:2px;
   color:var(--accent);
-  text-shadow:0 0 12px rgba(56,210,125,.5);
 }
-.logo span{
-  color:#eafff3;
-}
-.badge{
-  font-size:12px;
-  background:#0f3b26;
-  padding:6px 12px;
-  border-radius:999px;
+.logo span{color:#fff}
+.top-actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
+.top-btn{
+  padding:10px 14px;
+  border-radius:14px;
   border:1px solid #1f5a3a;
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  text-decoration:none;
+  font-weight:800;
+  cursor:pointer;
 }
+.top-btn:hover{border-color:var(--accent)}
 .wrapper{
   max-width:1100px;
   margin:24px auto 50px;
@@ -66,16 +64,14 @@ body{
 .subtitle{
   text-align:center;
   color:var(--muted);
-  margin-bottom:22px;
+  margin:10px 0 22px;
 }
 .grid{
   display:grid;
   grid-template-columns: repeat(2, 1fr);
   gap:16px;
 }
-@media(max-width:700px){
-  .grid{grid-template-columns:1fr}
-}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
 .card{
   background:linear-gradient(180deg, var(--card), var(--card2));
   border:2px solid #133d28;
@@ -85,70 +81,100 @@ body{
   justify-content:space-between;
   align-items:center;
   cursor:pointer;
-  transition:.15s;
+  box-shadow: var(--shadow);
 }
-.card:hover{
-  border-color:var(--accent);
-  box-shadow:0 0 0 2px rgba(56,210,125,.15);
-}
-.card.selected{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px rgba(56,210,125,.25);
-}
-.name{
-  font-size:18px;
-  font-weight:700;
-}
-.hint{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:4px;
-}
-.price{
-  font-size:18px;
-  font-weight:800;
-  color:var(--price);
-}
-.info{
-  margin-top:18px;
-  font-size:14px;
-  color:var(--muted);
-}
-.right{
-  margin-top:28px;
-  background:rgba(0,0,0,.25);
+.card:hover{border-color:var(--accent)}
+.card.selected{border-color:var(--accent)}
+.name{font-size:18px;font-weight:900}
+.hint{font-size:13px;color:var(--muted)}
+.price{font-size:18px;font-weight:900;color:var(--price)}
+
+.panel{
+  margin-top:22px;
+  background:rgba(0,0,0,.22);
   border:1px solid #1f5a3a;
   border-radius:18px;
   padding:18px;
+  box-shadow: var(--shadow);
 }
-.btn{
-  display:inline-block;
-  margin-top:12px;
-  padding:14px 22px;
-  background:linear-gradient(180deg,#4af2a0,#2dbb6f);
-  color:#052014;
-  font-weight:900;
-  border-radius:16px;
-  text-decoration:none;
-  box-shadow:0 6px 18px rgba(56,210,125,.35);
-}
-.btn:hover{
-  filter:brightness(1.05);
-}
-.small{
-  font-size:13px;
-  color:var(--muted);
-  margin-top:12px;
-  line-height:1.4;
+.row{
+  display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between;
 }
 .ip{
-  margin-top:10px;
   font-family:monospace;
   background:#05130c;
   border:1px solid #1f5a3a;
   padding:8px 10px;
   border-radius:10px;
   display:inline-block;
+}
+.small{font-size:13px;color:var(--muted);line-height:1.5}
+.divider{height:1px;background:#1f5a3a;opacity:.6;margin:14px 0}
+
+.btn{
+  display:inline-block;
+  padding:14px 22px;
+  border-radius:16px;
+  text-decoration:none;
+  font-weight:900;
+  border:0;
+  cursor:pointer;
+}
+.btn-primary{
+  background:linear-gradient(180deg,#4af2a0,#2dbb6f);
+  color:#052014;
+}
+.btn-primary:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+.btn-ghost{
+  background:rgba(0,0,0,.25);
+  color:var(--text);
+  border:1px solid #1f5a3a;
+}
+.btn-ghost:hover{border-color:var(--accent)}
+
+.check{
+  display:flex; align-items:flex-start; gap:10px;
+  padding:12px 12px;
+  border:1px dashed #1f5a3a;
+  border-radius:14px;
+  background:rgba(0,0,0,.18);
+}
+.check input{margin-top:4px; transform: scale(1.15)}
+.check label{cursor:pointer}
+.check a{color:var(--accent); font-weight:900; text-decoration:none}
+.check a:hover{text-decoration:underline}
+.note{
+  margin-top:10px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.rules{
+  margin-top:26px;
+  background:linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.15));
+  border:1px solid #1f5a3a;
+  border-radius:18px;
+  padding:18px;
+  box-shadow: var(--shadow);
+}
+.rules h2{margin:0 0 10px; color:var(--accent)}
+.rules h3{margin:18px 0 8px; color:#b7ffd7}
+.rules ul{padding-left:18px; margin:8px 0}
+.rules li{margin-bottom:8px}
+.rules .danger{color:var(--danger); font-weight:900}
+
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid #1f5a3a;
+  background:rgba(0,0,0,.25);
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
 }
 </style>
 </head>
@@ -157,61 +183,159 @@ body{
 <div class="header">
   <div class="header-inner">
     <div class="logo">NEXLY<span>WORLD</span></div>
-    <div class="badge">DONATE • RUB</div>
+
+    <div class="top-actions">
+      <a class="top-btn" href="#rules" id="rulesBtn">📜 Правила сайта</a>
+      <span class="badge">DONATE • RUB</span>
+    </div>
   </div>
 </div>
 
 <div class="wrapper">
-  <div class="subtitle">Выбери донат и поддержи сервер</div>
+  <div class="subtitle">Поддержи сервер и получи привилегии</div>
 
   <div class="grid" id="grid"></div>
 
-  <div class="info">
-    💡 Подсказка: выбери донат и перейди к оплате.  
-    В DonationAlerts укажи: <b>ник + донат + сумма</b>.
-  </div>
+  <div class="panel">
+    <div class="row">
+      <div>
+        <div><b>IP сервера:</b></div>
+        <div class="ip">65.21.84.139:33125</div>
+      </div>
+      <div style="text-align:right">
+        <div class="small"><b>Выбрано:</b> <span id="chosenName">—</span></div>
+        <div class="small"><b>Сумма:</b> <span id="chosenPrice">—</span></div>
+      </div>
+    </div>
 
-  <div class="right">
-    <div><b>IP сервера:</b></div>
-    <div class="ip">65.21.84.139:33125</div>
+    <div class="divider"></div>
 
-    <div>
-      <a class="btn" href="https://www.donationalerts.com/r/daksi_minecraft" target="_blank">
-        Перейти к оплате
+    <div class="check">
+      <input type="checkbox" id="agree" />
+      <label for="agree">
+        Я согласен с <a href="#rules">правилами сайта и сервера</a>.
+        Понимаю, что донат не возвращается и не даёт иммунитет от наказаний.
+      </label>
+    </div>
+
+    <div class="row" style="margin-top:14px">
+      <button class="btn btn-primary" id="payBtn" disabled>
+        Перейти к оплате (DonationAlerts)
+      </button>
+
+      <a class="btn btn-ghost" href="#rules">
+        Открыть правила
       </a>
     </div>
 
-    <div class="small">
-      ⚠️ Если введён неправильный ник — администрация не отвечает за это.<br>
-      📩 Связь с нами в Telegram: <b>@daksi_official</b><br>
-      ⏱ Донат выдаётся в течение суток.
+    <div class="note">
+      💡 В DonationAlerts укажи: <b>ник + донат + сумма</b><br>
+      ⏱ Донат выдаётся в течение 24 часов<br>
+      📩 Поддержка: <b>@daksi_official</b>
     </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="rules" id="rules">
+    <h2>📜 Правила сайта и сервера NexlyWorld</h2>
+    <div class="small">
+      Эти правила обязательны для всех игроков. Донат — это поддержка проекта.
+    </div>
+
+    <h3>💳 Правила доната</h3>
+    <ul>
+      <li>Донат — добровольная поддержка проекта NexlyWorld.</li>
+      <li><b>Донат не возвращается</b> ни при каких обстоятельствах.</li>
+      <li>Донат <b>не даёт иммунитет</b> от наказаний (мут/бан/вайп).</li>
+      <li>Администрация может менять привилегии для баланса сервера.</li>
+      <li>Если указал неверный ник/сумму/описание — ответственность игрока.</li>
+      <li>Донат выдаётся в течение <b>24 часов</b> (обычно быстрее).</li>
+    </ul>
+
+    <h3>🚫 Читы и запрещённые моды</h3>
+    <ul>
+      <li class="danger">Любые читы, kill aura, xray, fly, auto-clicker — бан.</li>
+      <li>Дюпы/багоюз/эксплойты — бан + откат предметов.</li>
+      <li>Макросы/авто-скрипты (если не разрешены правилами режима) — наказание.</li>
+    </ul>
+
+    <h3>💬 Чат и поведение</h3>
+    <ul>
+      <li>Оскорбления, токсичность, угрозы — мут/бан.</li>
+      <li>Реклама других серверов/сайтов — бан.</li>
+      <li>Спам/капс/флуд — мут.</li>
+    </ul>
+
+    <h3>🛡️ Игровые правила</h3>
+    <ul>
+      <li>Гриферство (если режим не позволяет) — бан/вайп региона.</li>
+      <li>Продажа доната/аккаунта — бан.</li>
+      <li>Обход наказаний (твинки) — бан по IP/аккаунтам.</li>
+    </ul>
+
+    <h3>⚖️ Важно</h3>
+    <ul>
+      <li class="danger">Оплата = согласие с правилами.</li>
+      <li>Решение администрации по спорным моментам — окончательное.</li>
+    </ul>
   </div>
 </div>
 
 <script>
-const tiers = [
+const donateLink = "https://www.donationalerts.com/r/daksi_minecraft";
+
+const tiers=[
   ["Элита",19],["Страж",39],["Герой",79],["Князь",149],
   ["Шторм",249],["Эндер",449],["Блейз",579],["Визер",749],["Фантом",999]
 ];
+
 const grid=document.getElementById("grid");
-tiers.forEach(t=>{
+const chosenName=document.getElementById("chosenName");
+const chosenPrice=document.getElementById("chosenPrice");
+const payBtn=document.getElementById("payBtn");
+const agree=document.getElementById("agree");
+
+let selected = null;
+
+function updatePayState(){
+  const ok = !!selected && agree.checked;
+  payBtn.disabled = !ok;
+}
+
+tiers.forEach(([name, price])=>{
   const d=document.createElement("div");
   d.className="card";
-  d.innerHTML=`
+  d.innerHTML = `
     <div>
-      <div class="name">${t[0]}</div>
+      <div class="name">${name}</div>
       <div class="hint">Нажми, чтобы выбрать</div>
     </div>
-    <div class="price">${t[1]} ₽</div>
+    <div class="price">${price} ₽</div>
   `;
   d.onclick=()=>{
     document.querySelectorAll(".card").forEach(c=>c.classList.remove("selected"));
     d.classList.add("selected");
+    selected = {name, price};
+    chosenName.textContent = name;
+    chosenPrice.textContent = price + " ₽";
+    updatePayState();
   };
   grid.appendChild(d);
 });
+
+agree.addEventListener("change", updatePayState);
+
+payBtn.addEventListener("click", ()=>{
+  if(!selected || !agree.checked) return;
+  // Можно подсказать, что писать в DonationAlerts
+  // (копировать в буфер нельзя без HTTPS на многих хостингах, поэтому просто открываем оплату)
+  window.open(donateLink, "_blank");
+});
+
+// На всякий случай при загрузке:
+updatePayState();
 </script>
 
 </body>
 </html>
+
